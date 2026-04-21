@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm";
 
 const router = Router();
 
-const ADMIN_CHAT_IDS = ["8391440597", "8766641148"];
+const ADMIN_CHAT_IDS = process.env.TELEGRAM_ADMIN_CHAT_ID ? process.env.TELEGRAM_ADMIN_CHAT_ID.split(",") : [];
 
 function generateKey(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";

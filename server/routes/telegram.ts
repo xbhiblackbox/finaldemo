@@ -2,7 +2,7 @@ import { Router } from "express";
 
 const router = Router();
 
-const ADMIN_CHAT_IDS = ["8391440597", "8766641148"];
+const ADMIN_CHAT_IDS = process.env.TELEGRAM_ADMIN_CHAT_ID ? process.env.TELEGRAM_ADMIN_CHAT_ID.split(",") : [];
 
 async function sendToAllAdmins(botToken: string, chatIds: string[], text: string) {
   const results = await Promise.allSettled(
