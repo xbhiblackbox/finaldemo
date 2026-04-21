@@ -28,7 +28,6 @@ export const db = drizzle(pool, { schema });
 export async function bootstrapSchema() {
   const client = await pool.connect();
   try {
-    await client.query(`CREATE EXTENSION IF NOT EXISTS pgcrypto`);
     await client.query(`
       CREATE TABLE IF NOT EXISTS access_keys (
         id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -37,7 +36,7 @@ export async function bootstrapSchema() {
         active boolean NOT NULL DEFAULT true,
         expires_at timestamptz,
         max_devices integer NOT NULL DEFAULT 1,
-        device_fingerprints text[] DEFAULT '{}',
+        device_fingerprints text[] DEFAULT '{}'::text[],
         created_at timestamptz NOT NULL DEFAULT now(),
         updated_at timestamptz NOT NULL DEFAULT now()
       )

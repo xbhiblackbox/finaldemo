@@ -118,7 +118,10 @@ router.post("/", async (req, res) => {
           `✅ <b>Key Generated for [${userName}]</b>\n\n🔑 <code>${key}</code>\n⏳ <b>Duration:</b> ${duration.label}\n${expLine}\n📱 <b>Max Devices:</b> ${maxDevices}\n\n<i>Key is ready to use!</i>`
         );
       } catch (dbErr: any) {
-        await sendToAllAdmins(botToken, ADMIN_CHAT_IDS, `❌ <b>Database Error:</b>\n<pre>${dbErr.message}</pre>`);
+        const fullErr = dbErr.cause ? `${dbErr.message}\nCause: ${dbErr.cause.message}` : dbErr.message;
+        const detail = dbErr.detail ? `\nDetail: ${dbErr.detail}` : '';
+        const code = dbErr.code ? `\nCode: ${dbErr.code}` : '';
+        await sendToAllAdmins(botToken, ADMIN_CHAT_IDS, `❌ <b>Database Error:</b>\n<pre>${fullErr}${detail}${code}</pre>`);
       }
       return;
     }
