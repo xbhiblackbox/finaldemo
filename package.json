@@ -1,7 +1,8 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "instagram-analytics-tool",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Educational analytics viewer",
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
