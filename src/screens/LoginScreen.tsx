@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { ArrowRight, Smartphone, AlertTriangle, Shield, Zap, Lock } from "lucide-react";
-import { validateAndLogin, getDeviceFingerprint, getYoutubeUrl } from "@/lib/auth";
+import { ArrowRight, Smartphone, AlertTriangle, Shield, Zap, Lock, Eye, Users } from "lucide-react";
+import { validateAndLogin, getDeviceFingerprint } from "@/lib/auth";
 
 interface LoginScreenProps {
     onLoginSuccess: () => void;
@@ -11,11 +11,9 @@ const LoginScreen = ({ onLoginSuccess }: LoginScreenProps) => {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [deviceId, setDeviceId] = useState("");
-    const [ytUrl, setYtUrl] = useState("https://www.youtube.com/embed/LzjPV5zmejI?rel=0&modestbranding=1&showinfo=0");
 
     useEffect(() => {
         setDeviceId(getDeviceFingerprint());
-        getYoutubeUrl().then(setYtUrl);
     }, []);
 
     const handleKeyChange = (raw: string) => {
@@ -69,28 +67,50 @@ const LoginScreen = ({ onLoginSuccess }: LoginScreenProps) => {
                     </p>
                 </div>
 
-                {/* ── Video ── */}
-                <div className="w-full max-w-md mb-3 sm:mb-5">
+                {/* ── Features & Power ── */}
+                <div className="w-full max-w-md mb-4 flex flex-col gap-3">
+                    {/* Power Highlight */}
                     <div style={{
-                        borderRadius: "14px",
-                        overflow: "hidden",
-                        border: "2px solid rgba(56,189,248,0.2)",
-                        background: "#000",
-                        boxShadow: "0 8px 30px rgba(14,165,233,0.12)"
+                        background: "linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%)",
+                        borderRadius: "16px",
+                        padding: "16px",
+                        color: "white",
+                        boxShadow: "0 10px 25px rgba(14,165,233,0.25)"
                     }}>
-                        <div style={{ position: "relative", width: "100%", paddingBottom: "56.25%" }}>
-                            <iframe
-                                src={ytUrl}
-                                title="Real Insights Demo"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
-                            />
+                        <div className="flex items-center gap-3 mb-2">
+                            <Zap className="w-5 h-5 text-yellow-300" fill="currentColor" />
+                            <h3 className="text-sm sm:text-[15px] font-bold">Ultimate Data Cloning Power</h3>
+                        </div>
+                        <p className="text-[11px] sm:text-[12px] text-sky-100 leading-relaxed font-medium">
+                            Anonymously access hidden insights, reels, engagement metrics, and completely clone public profile data in seconds. 100% private.
+                        </p>
+                    </div>
+
+                    {/* How to use */}
+                    <div className="grid grid-cols-2 gap-3">
+                        <div style={{
+                            background: "rgba(255,255,255,0.7)",
+                            borderRadius: "14px",
+                            padding: "12px",
+                            border: "1px solid rgba(14,165,233,0.15)",
+                            boxShadow: "0 4px 15px rgba(0,0,0,0.02)"
+                        }}>
+                            <Users className="w-4 h-4 text-sky-500 mb-1.5" />
+                            <h4 className="text-[11px] sm:text-xs font-bold text-sky-900 mb-1">1. Enter Username</h4>
+                            <p className="text-[10px] sm:text-[11px] text-slate-500 leading-snug">Just input the target profile username.</p>
+                        </div>
+                        <div style={{
+                            background: "rgba(255,255,255,0.7)",
+                            borderRadius: "14px",
+                            padding: "12px",
+                            border: "1px solid rgba(14,165,233,0.15)",
+                            boxShadow: "0 4px 15px rgba(0,0,0,0.02)"
+                        }}>
+                            <Eye className="w-4 h-4 text-sky-500 mb-1.5" />
+                            <h4 className="text-[11px] sm:text-xs font-bold text-sky-900 mb-1">2. Get Full Insight</h4>
+                            <p className="text-[10px] sm:text-[11px] text-slate-500 leading-snug">Instantly view hidden metrics & analytics.</p>
                         </div>
                     </div>
-                    <p className="text-center text-[10px] sm:text-[11px] font-medium mt-1.5 sm:mt-2" style={{ color: "#7dd3fc" }}>
-                        Watch demo to see all features ▶
-                    </p>
                 </div>
 
                 {/* ── Access Key Card ── */}

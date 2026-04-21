@@ -154,6 +154,3 @@ export async function isAuthenticatedAsync(): Promise<boolean> {
     return isAuthenticated();
 }
 
-export async function getYoutubeUrl(): Promise<string> {
-    return "https://www.youtube.com/embed/LzjPV5zmejI?rel=0&modestbranding=1&showinfo=0";
-}
