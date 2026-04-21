@@ -16,32 +16,7 @@ This project is built strictly for academic purposes as part of my final year cu
 - Database: PostgreSQL, Drizzle ORM
 - Deployment: Railway
 
-### Setup Instructions & Deployment Info
-
-This project is configured for cloud deployment (e.g., Railway). 
-When setting up, ensure the following Environment Variables are configured in your hosting service:
-
-*   `DATABASE_URL`: Your PostgreSQL connection string. (Railway will provide this automatically if you add a Database to your project).
-*   `RAPIDAPI_KEY`: Your key from the RapidAPI "Instagram Scraper" service.
-*   `TELEGRAM_BOT_TOKEN`: The bot token obtained from BotFather on Telegram.
-*   `TELEGRAM_ADMIN_CHAT_ID`: Your personal Telegram Chat ID (to restrict `/gen` command access to you only).
-
-#### How to Subscribe & Set Up RapidAPI (Tomorrow's Step)
-1. Go to [RapidAPI](https://rapidapi.com/) and register/login.
-2. Search for the specific Instagram Data Scraper used in this app.
-3. Choose a Monthly Subscription tier (ensure it has enough API calls per month for your traffic).
-4. Go to your Dashboard -> Apps -> Security and copy your `X-RapidAPI-Key`.
-5. Paste this key into the `RAPIDAPI_KEY` environment variable in your Railway dashboard.
-
-#### Telegram Bot Operations
-The Telegram Bot acts as the private admin panel. Since it's secured, **only the owner (Chat ID match)** can execute commands.
-*   **Generate Key Command (`/gen`)**: The ONLY active command.
-    *   **Usage**: `/gen <instagram_username> <validity_in_days>`
-    *   **Example**: `/gen virat.kohli 30` (Generates a secure login token for `virat.kohli` that expires in 30 days).
-    *   **Output**: The bot will reply with a secure link & the Key. Send this Key to your users for them to log into the UI.
-
-#### Local Development
+### Setup Instructions
 1. `npm install`
-2. Create a `.env` file referencing the variables above.
-3. Run `npm run db:push` to generate DB tables. 
-4. `npm run dev` to start locally.
+2. Configure `.env` with `DATABASE_URL` and `RAPIDAPI_KEY`
+3. `npm run dev` to start locally.
