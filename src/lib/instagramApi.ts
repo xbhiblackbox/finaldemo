@@ -264,7 +264,9 @@ async function syncIgHighlightsToMockAccounts(username: string, highlights: Inst
 /** Proxy Instagram CDN images through our server to bypass referrer/CORS blocks. */
 export function proxyIgImage(url: string | undefined | null): string {
   if (!url) return "";
-  return url;
+  // Bypass Origin IP blocks using a global caching proxy (weserv.nl)
+  // This solves 403 Forbidden issues when IG URLs generated in US are opened in India
+  return `https://images.weserv.nl/?url=${encodeURIComponent(url)}`;
 }
 
 export function formatCount(n: number): string {
