@@ -2,6 +2,8 @@ import { Plus } from "lucide-react";
 import type { Story } from "@/data/mockData";
 import { cn } from "@/lib/utils";
 
+import { proxyIgImage } from "@/lib/instagramApi";
+
 interface StoryCircleProps {
   story: Story;
   onClick?: () => void;
@@ -23,7 +25,7 @@ const StoryCircle = ({ story, onClick }: StoryCircleProps) => (
       )}>
         <div className="rounded-full bg-background p-[2px]">
           <img
-            src={story.avatar}
+            src={proxyIgImage(story.avatar) || story.avatar}
             alt={story.username}
             className="h-[76px] w-[76px] rounded-full object-cover"
           />

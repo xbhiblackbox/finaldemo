@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { currentUser, getPrimaryAccount } from "@/data/mockData";
-import { getLiveAvatar } from "@/lib/instagramApi";
+import { getLiveAvatar, proxyIgImage } from "@/lib/instagramApi";
 import { useRef, useCallback, useState, useEffect } from "react";
 
 // Instagram Reels icon - rounded square with play triangle
@@ -151,7 +151,7 @@ const BottomNav = () => {
                       ? isReelsPage ? "ring-[1.5px] ring-white" : "ring-[1.5px] ring-foreground"
                       : ""
                   )}>
-                    <img key={profileAvatar} src={profileAvatar} alt="Profile" className="h-full w-full object-cover" />
+                    <img key={profileAvatar} src={proxyIgImage(profileAvatar) || profileAvatar} alt="Profile" className="h-full w-full object-cover" />
                   </div>
                   <span className="absolute -right-0.5 bottom-0 h-[8px] w-[8px] rounded-full bg-[hsl(var(--ig-like))] border border-background" />
                 </div>
