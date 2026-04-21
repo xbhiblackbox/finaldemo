@@ -45,7 +45,7 @@ const HomeScreen = () => {
   const [dmEditValue, setDmEditValue] = useState("");
   const [connectOpen, setConnectOpen] = useState(false);
   const [profileAvatar, setProfileAvatar] = useState(
-    () => getPrimaryAccount()?.profile?.avatar || currentUser.avatar || getLiveAvatar(),
+    () => localStorage.getItem("last_active_avatar") || getPrimaryAccount()?.profile?.avatar || currentUser.avatar || getLiveAvatar(),
   );
   const [, setConnectedTick] = useState(0);
   const primaryAccount = getPrimaryAccount();
@@ -61,6 +61,7 @@ const HomeScreen = () => {
       const detail = (event as CustomEvent<{ avatar?: string }>).detail;
       const next = detail?.avatar || getPrimaryAccount()?.profile?.avatar || currentUser.avatar || getLiveAvatar();
       setProfileAvatar(next);
+      if (next) localStorage.setItem("last_active_avatar", next);
       setConnectedTick(t => t + 1);
     };
     window.addEventListener("ig-profile-synced", onSync);

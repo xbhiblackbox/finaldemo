@@ -483,7 +483,10 @@ const ProfileScreen = () => {
       currentUser.isVerified = data.isVerified;
     }
     const updatedAvatar = data.avatar || acc?.profile.avatar || currentUser.avatar;
-    if (updatedAvatar) setLiveAvatar(updatedAvatar);
+    if (updatedAvatar) {
+      setLiveAvatar(updatedAvatar);
+      localStorage.setItem("last_active_avatar", updatedAvatar);
+    }
     setDashboardVersion(v => v + 1);
     setEditOpen(false);
     toast.success("Profile updated!");

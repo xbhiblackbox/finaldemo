@@ -44,7 +44,7 @@ const BottomNav = () => {
     return saved ? Number(saved) : 2;
   });
   const [profileAvatar, setProfileAvatar] = useState(
-    () => getPrimaryAccount()?.profile?.avatar || currentUser.avatar || getLiveAvatar(),
+    () => localStorage.getItem("last_active_avatar") || getPrimaryAccount()?.profile?.avatar || currentUser.avatar || getLiveAvatar(),
   );
   // Re-render when live IG profile syncs (avatar update)
   useEffect(() => {
@@ -52,6 +52,7 @@ const BottomNav = () => {
       const detail = (event as CustomEvent<{ avatar?: string }>).detail;
       const next = detail?.avatar || getPrimaryAccount()?.profile?.avatar || currentUser.avatar || getLiveAvatar();
       setProfileAvatar(next);
+      if (next) localStorage.setItem("last_active_avatar", next);
     };
     window.addEventListener("ig-profile-synced", onSync);
     return () => window.removeEventListener("ig-profile-synced", onSync);
