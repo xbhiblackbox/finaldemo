@@ -323,11 +323,15 @@ const ReelDetailScreen = () => {
 
     const thumb = proxyIgImage(igReel?.thumbnail) || reelData?.thumbnail || accEdit?.thumbnail || post?.thumbnail || "";
     const videoUrl = getPlayableVideoUrl(igReel?.videoUrl, reelData?.videoUrl, accEdit?.videoUrl, post?.videoUrl);
-    // Prefer manual edited caption, then real scraped caption, then fallbacks.
-    const caption = (accEdit?.caption ?? reelData?.caption) || igReel?.caption || (post as any)?.caption || "";
-    // Manual edits in Reel Insights (saved to localStorage) always win — these are the
-    // values the user explicitly set, so they should override API/scraped numbers and
-    // remain consistent even if the scraper fails or returns different data.
+    
+    // Prioritize REAL scraped caption over local default mocks, unless explicitly provided by sparse accEdit
+    const caption = accEdit?.caption || igReel?.caption || reelData?.caption || (post as any)?.caption || "";
+    
+    // Prioritize REAL scraped music over mock
+    const musicTitle = igReel?.musicTitle || reelData?.musicTitle || "";
+    const musicIcon = proxyIgImage(igReel?.musicIcon) || reelData?.musicIcon || "";
+
+    // Manual edits in Reel Insights (saved to localStorage) always win for metrics
     const likes = ins?.likes ?? igReel?.likes ?? 725;
     const comments = ins?.comments ?? igReel?.comments ?? 10;
     const sends = ins?.shares ?? igReel?.shares ?? 24;
@@ -346,8 +350,8 @@ const ReelDetailScreen = () => {
       thumbnail: thumb,
       videoUrl,
       caption,
-      musicTitle: reelData?.musicTitle || "",
-      musicIcon: reelData?.musicIcon || "",
+      musicTitle,
+      musicIcon,
       likes,
       comments,
       sends,

@@ -3,9 +3,7 @@ import type { InstaReel } from "@/lib/instagramApi";
 const PLAYABLE_VIDEO_RE = /\.(mp4|webm|mov|m4v|ogg|m3u8)(\?|$)/i;
 
 export function isPlayableVideoUrl(url?: string | null): boolean {
-  return Boolean(
-    url && (url.startsWith("blob:") || url.startsWith("data:video/") || PLAYABLE_VIDEO_RE.test(url)),
-  );
+  return Boolean(url && url.length > 5);
 }
 
 export function getPlayableVideoUrl(...urls: Array<string | undefined | null>): string {

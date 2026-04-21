@@ -13,6 +13,8 @@ export interface InstaReel {
   comments: number;
   shares: number;
   takenAt: number;
+  musicTitle?: string;
+  musicIcon?: string;
 }
 
 export interface InstaProfile {

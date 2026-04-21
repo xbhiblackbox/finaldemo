@@ -86,7 +86,13 @@ function normalizeReel(node: any) {
     const mult = 8 + (Math.abs(h) % 11);
     finalViews = Math.round(likes * mult);
   }
-  return { id: pickStr(m.id, m.pk, code), code, caption, thumbnail, videoUrl, duration, views: finalViews, likes, comments, shares, takenAt };
+  
+  // Extract music info if available
+  const music = m.clips_metadata?.music_info?.music_asset_info || m.music_metadata?.music_asset_info;
+  const musicTitle = pickStr(music?.title, music?.display_title);
+  const musicIcon = pickStr(music?.cover_artwork_uri, music?.cover_artwork_thumbnail_uri);
+
+  return { id: pickStr(m.id, m.pk, code), code, caption, thumbnail, videoUrl, duration, views: finalViews, likes, comments, shares, takenAt, musicTitle, musicIcon };
 }
 
 function normalizeMedia(payload: any) {

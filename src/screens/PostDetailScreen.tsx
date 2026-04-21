@@ -49,7 +49,7 @@ const PostDetailScreen = () => {
   const igMatch = getIgMediaByCode(igMediaList, igCodeParam, index);
 
   const image = proxyIgImage(igMatch?.thumbnail) || editedAcc?.thumbnail || localData?.thumbnail || (post as any)?.image || "";
-  const caption = localData?.caption || editedAcc?.caption || igMatch?.caption || "🔥 New post ✨";
+  const caption = editedAcc?.caption || igMatch?.caption || localData?.caption || "🔥 New post ✨";
   const likes = localData?.insights?.likes ?? editedAcc?.insights?.likes ?? igMatch?.likes ?? 256;
   const comments = localData?.insights?.comments ?? editedAcc?.insights?.comments ?? igMatch?.comments ?? 2;
   const sends = localData?.insights?.shares ?? editedAcc?.insights?.shares ?? igMatch?.shares ?? 1;
