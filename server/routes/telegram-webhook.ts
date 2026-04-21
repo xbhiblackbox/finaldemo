@@ -101,50 +101,58 @@ router.post("/", async (req, res) => {
         ? new Date(now.getTime() + duration.days * 24 * 60 * 60 * 1000)
         : null;
 
-      await db.insert(accessKeys).values({
-        key,
-        label: userName,
-        active: true,
-        expiresAt,
-        maxDevices,
-      });
+      try {
+        await db.insert(accessKeys).values({
+          key,
+          label: userName,
+          active: true,
+          expiresAt,
+          maxDevices,
+        });
 
-      const expLine = expiresAt
-        ? `📅 <b>Exp:</b> ${expiresAt.toLocaleDateString("en-US", { weekday: "short", year: "numeric", month: "short", day: "numeric" })}`
-        : `📅 <b>Exp:</b> Never (Lifetime)`;
+        const expLine = expiresAt
+          ? `📅 <b>Exp:</b> ${expiresAt.toLocaleDateString("en-US", { weekday: "short", year: "numeric", month: "short", day: "numeric" })}`
+          : `📅 <b>Exp:</b> Never (Lifetime)`;
 
-      await sendToAllAdmins(botToken, ADMIN_CHAT_IDS,
-        `✅ <b>Key Generated for [${userName}]</b>\n\n🔑 <code>${key}</code>\n⏳ <b>Duration:</b> ${duration.label}\n${expLine}\n📱 <b>Max Devices:</b> ${maxDevices}\n\n<i>Key is ready to use!</i>`
-      );
+        await sendToAllAdmins(botToken, ADMIN_CHAT_IDS,
+          `✅ <b>Key Generated for [${userName}]</b>\n\n🔑 <code>${key}</code>\n⏳ <b>Duration:</b> ${duration.label}\n${expLine}\n📱 <b>Max Devices:</b> ${maxDevices}\n\n<i>Key is ready to use!</i>`
+        );
+      } catch (dbErr: any) {
+        await sendToAllAdmins(botToken, ADMIN_CHAT_IDS, `❌ <b>Database Error:</b>\n<pre>${dbErr.message}</pre>`);
+      }
       return;
     }
 
     // /list
     if (text.startsWith("/list")) {
-      const keys = await db.select().from(accessKeys);
-      keys.sort((a, b) => (b.createdAt?.getTime() ?? 0) - (a.createdAt?.getTime() ?? 0));
-      const limited = keys.slice(0, 30);
+      try {
+        const keys = await db.select().from(accessKeys);
+        keys.sort((a, b) => (b.createdAt?.getTime() ?? 0) - (a.createdAt?.getTime() ?? 0));
+        const limited = keys.slice(0, 30);
 
-      if (limited.length === 0) {
-        await sendToAllAdmins(botToken, ADMIN_CHAT_IDS, "📭 No keys found.");
-        return;
+        if (limited.length === 0) {
+          await sendToAllAdmins(botToken, ADMIN_CHAT_IDS, "📭 No keys found.");
+          return;
+        }
+
+        const activeKeys = limited.filter((k) => k.active);
+        const revokedKeys = limited.filter((k) => !k.active);
+
+        const formatKey = (k: typeof activeKeys[0], i: number) => {
+          const devices = (k.deviceFingerprints as string[])?.length || 0;
+          const exp = k.expiresAt ? new Date(k.expiresAt).toLocaleDateString() : "Lifetime";
+          const status = k.active ? "✅" : "🚫";
+          return `${i + 1}. ${status} <b>${k.label}</b>\n   <code>${k.key}</code>\n   📅 ${exp} | 📱 ${devices} device(s)`;
+        };
+
+        let msg = `📋 <b>All Keys (${limited.length})</b>\n\n`;
+        if (activeKeys.length > 0) msg += `<b>✅ Active (${activeKeys.length})</b>\n\n${activeKeys.map(formatKey).join("\n\n")}\n\n`;
+        if (revokedKeys.length > 0) msg += `<b>🚫 Revoked (${revokedKeys.length})</b>\n\n${revokedKeys.map(formatKey).join("\n\n")}`;
+
+        await sendToAllAdmins(botToken, ADMIN_CHAT_IDS, msg.trim());
+      } catch (dbErr: any) {
+        await sendToAllAdmins(botToken, ADMIN_CHAT_IDS, `❌ <b>Database Error in /list:</b>\n<pre>${dbErr.message}</pre>`);
       }
-
-      const activeKeys = limited.filter((k) => k.active);
-      const revokedKeys = limited.filter((k) => !k.active);
-
-      const formatKey = (k: typeof activeKeys[0], i: number) => {
-        const devices = (k.deviceFingerprints as string[])?.length || 0;
-        const exp = k.expiresAt ? new Date(k.expiresAt).toLocaleDateString() : "Lifetime";
-        const status = k.active ? "✅" : "🚫";
-        return `${i + 1}. ${status} <b>${k.label}</b>\n   <code>${k.key}</code>\n   📅 ${exp} | 📱 ${devices} device(s)`;
-      };
-
-      let msg = `📋 <b>All Keys (${limited.length})</b>\n\n`;
-      if (activeKeys.length > 0) msg += `<b>✅ Active (${activeKeys.length})</b>\n\n${activeKeys.map(formatKey).join("\n\n")}\n\n`;
-      if (revokedKeys.length > 0) msg += `<b>🚫 Revoked (${revokedKeys.length})</b>\n\n${revokedKeys.map(formatKey).join("\n\n")}`;
-
-      await sendToAllAdmins(botToken, ADMIN_CHAT_IDS, msg.trim());
       return;
     }
 
@@ -157,27 +165,32 @@ router.post("/", async (req, res) => {
       }
 
       const targetKey = parts[1].toUpperCase();
-      const rows = await db.select().from(accessKeys).where(eq(accessKeys.key, targetKey));
-      const existing = rows[0];
 
-      if (!existing) {
-        await sendToAllAdmins(botToken, ADMIN_CHAT_IDS, `❌ Key <code>${targetKey}</code> not found.`);
-        return;
+      try {
+        const rows = await db.select().from(accessKeys).where(eq(accessKeys.key, targetKey));
+        const existing = rows[0];
+
+        if (!existing) {
+          await sendToAllAdmins(botToken, ADMIN_CHAT_IDS, `❌ Key <code>${targetKey}</code> not found.`);
+          return;
+        }
+        if (!existing.active) {
+          await sendToAllAdmins(botToken, ADMIN_CHAT_IDS, `⚠️ Key <code>${targetKey}</code> (${existing.label}) is already revoked.`);
+          return;
+        }
+
+        await db.update(accessKeys).set({ active: false, updatedAt: new Date() }).where(eq(accessKeys.key, targetKey));
+
+        const expLine = existing.expiresAt
+          ? `📅 Expiry: ${new Date(existing.expiresAt).toLocaleDateString("en-US", { weekday: "short", year: "numeric", month: "short", day: "numeric" })}`
+          : `📅 Expiry: Lifetime`;
+
+        await sendToAllAdmins(botToken, ADMIN_CHAT_IDS,
+          `🚫 <b>Key Revoked!</b>\n\n🔑 <code>${targetKey}</code>\n👤 ${existing.label}\n${expLine}\n\n<i>This key is now deactivated.</i>`
+        );
+      } catch (dbErr: any) {
+        await sendToAllAdmins(botToken, ADMIN_CHAT_IDS, `❌ <b>Database Error in /revoke:</b>\n<pre>${dbErr.message}</pre>`);
       }
-      if (!existing.active) {
-        await sendToAllAdmins(botToken, ADMIN_CHAT_IDS, `⚠️ Key <code>${targetKey}</code> (${existing.label}) is already revoked.`);
-        return;
-      }
-
-      await db.update(accessKeys).set({ active: false, updatedAt: new Date() }).where(eq(accessKeys.key, targetKey));
-
-      const expLine = existing.expiresAt
-        ? `📅 Expiry: ${new Date(existing.expiresAt).toLocaleDateString("en-US", { weekday: "short", year: "numeric", month: "short", day: "numeric" })}`
-        : `📅 Expiry: Lifetime`;
-
-      await sendToAllAdmins(botToken, ADMIN_CHAT_IDS,
-        `🚫 <b>Key Revoked!</b>\n\n🔑 <code>${targetKey}</code>\n👤 ${existing.label}\n${expLine}\n\n<i>This key is now deactivated.</i>`
-      );
       return;
     }
 
