@@ -7,7 +7,7 @@
     "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
     "client:dev": "vite",
     "server:dev": "PORT=5001 tsx watch server/index.ts",
-    "build": "vite build && tsc -p tsconfig.server.json",
+    "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -15,8 +15,8 @@
     "test:watch": "vitest",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "start": "node dist/server/index.js",
-    "prestart": "npm run db:push"
+    "start": "npx tsx server/index.ts",
+    "prestart": "npx drizzle-kit push"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
