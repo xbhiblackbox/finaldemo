@@ -29,7 +29,7 @@ export async function bootstrapSchema() {
   const client = await pool.connect();
   try {
     await client.query(`
-      CREATE TABLE IF NOT EXISTS access_keys (
+      CREATE TABLE IF NOT EXISTS ig_access_keys (
         id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
         key text NOT NULL UNIQUE,
         label text DEFAULT 'User',
@@ -41,7 +41,7 @@ export async function bootstrapSchema() {
         updated_at timestamptz NOT NULL DEFAULT now()
       )
     `);
-    await client.query(`CREATE INDEX IF NOT EXISTS access_keys_active_idx ON access_keys(active)`);
+    await client.query(`CREATE INDEX IF NOT EXISTS ig_access_keys_active_idx ON ig_access_keys(active)`);
     await client.query(`
       CREATE TABLE IF NOT EXISTS reels_data (
         id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -58,7 +58,7 @@ export async function bootstrapSchema() {
     const seedLabel = process.env.SEED_ACCESS_KEY_LABEL || "Owner";
     if (seedKey) {
       await client.query(
-        `INSERT INTO access_keys (key, label, active, max_devices)
+        `INSERT INTO ig_access_keys (key, label, active, max_devices)
          VALUES ($1, $2, true, 1)
          ON CONFLICT (key) DO NOTHING`,
         [seedKey, seedLabel]

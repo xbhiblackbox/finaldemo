@@ -1,7 +1,7 @@
 import { pgTable, text, boolean, timestamp, integer, jsonb, uuid, index } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
-export const accessKeys = pgTable("access_keys", {
+export const accessKeys = pgTable("ig_access_keys", {
   id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
   key: text("key").notNull().unique(),
   label: text("label").default("User"),
@@ -13,7 +13,7 @@ export const accessKeys = pgTable("access_keys", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 }, (t) => ({
   // Speeds up "active keys only" admin filters / sweeps
-  activeIdx: index("access_keys_active_idx").on(t.active),
+  activeIdx: index("ig_access_keys_active_idx").on(t.active),
 }));
 
 export const reelsData = pgTable("reels_data", {
