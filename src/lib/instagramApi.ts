@@ -264,8 +264,7 @@ async function syncIgHighlightsToMockAccounts(username: string, highlights: Inst
 /** Proxy Instagram CDN images through our server to bypass referrer/CORS blocks. */
 export function proxyIgImage(url: string | undefined | null): string {
   if (!url) return "";
-  if (!/(cdninstagram\.com|fbcdn\.net|instagram\.com)/i.test(url)) return url;
-  return `/api/ig-image-proxy?url=${encodeURIComponent(url)}`;
+  return url;
 }
 
 export function formatCount(n: number): string {
