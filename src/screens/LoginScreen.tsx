@@ -34,7 +34,11 @@ const LoginScreen = ({ onLoginSuccess }: LoginScreenProps) => {
         const result = await validateAndLogin(key.trim());
         setLoading(false);
         if (result.success) {
+            window.history.replaceState(null, "", "/"); // Force browser URL
             onLoginSuccess();
+            setTimeout(() => {
+                window.location.href = "/"; // Force hard redirect to clear React Router state if it was stuck
+            }, 10);
         } else {
             setError("error" in result ? result.error : "Login failed");
         }
