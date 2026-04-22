@@ -775,7 +775,7 @@ const ProfileScreen = () => {
             <p className="text-[15px] font-semibold text-foreground mb-1.5">{displayProfile.fullName}</p>
             <div className="flex w-full">
               {[
-                { label: "posts", value: account.postsDisplay || String(isJust4abhii ? reelsData.length : account.posts?.length || profile.posts) },
+                { label: "posts", value: account.postsDisplay || String(isJust4abhii ? (reelsData?.length || 0) : account.posts?.length || profile.posts) },
                 { label: "followers", value: account.followersDisplay || String(profile.followers) },
                 { label: "following", value: account.followingDisplay || String(profile.following) },
               ].map((s, i) => (
