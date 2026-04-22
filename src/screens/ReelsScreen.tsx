@@ -32,7 +32,7 @@ const defaultReels: Reel[] = [
   {
     id: "1",
     user: "money_mentor",
-    avatar: "https://i.pravatar.cc/150?img=12",
+    avatar: "https://randomuser.me/api/portraits/women/12.jpg",
     caption: "5 ways to earn ₹50K/month from home 💰🔥 #earnmoney #sidehustle #passiveincome",
     likes: 45200,
     comments: 1230,
@@ -43,7 +43,7 @@ const defaultReels: Reel[] = [
   {
     id: "2",
     user: "hustle.king",
-    avatar: "https://i.pravatar.cc/150?img=14",
+    avatar: "https://randomuser.me/api/portraits/women/14.jpg",
     caption: "Start freelancing today — no degree needed 🚀💻 #freelancing #workfromhome #money",
     likes: 32100,
     comments: 876,
@@ -54,7 +54,7 @@ const defaultReels: Reel[] = [
   {
     id: "3",
     user: "crypto_guru",
-    avatar: "https://i.pravatar.cc/150?img=15",
+    avatar: "https://randomuser.me/api/portraits/men/15.jpg",
     caption: "Bitcoin se daily ₹5000 kaise kamaye? 🪙📈 #crypto #bitcoin #trading #invest",
     likes: 28400,
     comments: 654,
@@ -65,7 +65,7 @@ const defaultReels: Reel[] = [
   {
     id: "4",
     user: "skill.factory",
-    avatar: "https://i.pravatar.cc/150?img=16",
+    avatar: "https://randomuser.me/api/portraits/women/16.jpg",
     caption: "3 HIGH income skills for 2026 💡🎯 #skills #career #growth #motivation",
     likes: 51800,
     comments: 1456,
@@ -76,7 +76,7 @@ const defaultReels: Reel[] = [
   {
     id: "5",
     user: "dropship_pro",
-    avatar: "https://i.pravatar.cc/150?img=17",
+    avatar: "https://randomuser.me/api/portraits/men/17.jpg",
     caption: "Dropshipping se ₹1 lakh/month 🛒🤑 Step by step guide #dropshipping #ecommerce #business",
     likes: 19800,
     comments: 543,
@@ -87,7 +87,7 @@ const defaultReels: Reel[] = [
   {
     id: "6",
     user: "ai_earner",
-    avatar: "https://i.pravatar.cc/150?img=18",
+    avatar: "https://randomuser.me/api/portraits/women/18.jpg",
     caption: "ChatGPT se paise kamao — 7 secret methods 🤖💸 #ai #chatgpt #onlineearning",
     likes: 67300,
     comments: 2100,
@@ -506,7 +506,7 @@ const ReelsScreen = () => {
     const newReel: Reel = {
       id: `custom_reel_${Date.now()}`,
       user: "just4abhii",
-      avatar: "https://i.pravatar.cc/150?img=33",
+      avatar: "https://randomuser.me/api/portraits/men/33.jpg",
       caption: "🔥 New reel ✨ #reels #viral",
       likes: 0,
       comments: 0,

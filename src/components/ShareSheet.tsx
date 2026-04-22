@@ -8,12 +8,12 @@ interface ShareSheetProps {
 }
 
 const shareContacts = [
-  { name: "sarah_j", avatar: "https://i.pravatar.cc/150?img=1" },
-  { name: "mike.design", avatar: "https://i.pravatar.cc/150?img=3" },
-  { name: "priya_k", avatar: "https://i.pravatar.cc/150?img=5" },
-  { name: "alex.dev", avatar: "https://i.pravatar.cc/150?img=7" },
-  { name: "nina_art", avatar: "https://i.pravatar.cc/150?img=9" },
-  { name: "raj_photo", avatar: "https://i.pravatar.cc/150?img=11" },
+  { name: "sarah_j", avatar: "https://randomuser.me/api/portraits/men/1.jpg" },
+  { name: "mike.design", avatar: "https://randomuser.me/api/portraits/men/3.jpg" },
+  { name: "priya_k", avatar: "https://randomuser.me/api/portraits/men/5.jpg" },
+  { name: "alex.dev", avatar: "https://randomuser.me/api/portraits/men/7.jpg" },
+  { name: "nina_art", avatar: "https://randomuser.me/api/portraits/men/9.jpg" },
+  { name: "raj_photo", avatar: "https://randomuser.me/api/portraits/men/11.jpg" },
 ];
 
 const shareOptions = [

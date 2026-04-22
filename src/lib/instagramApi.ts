@@ -267,10 +267,10 @@ async function syncIgHighlightsToMockAccounts(username: string, highlights: Inst
 export function proxyIgImage(url: string | undefined | null): string {
   if (!url) return "";
   if (!url.startsWith("http")) return url; // Do not proxy local/relative paths
-  if (url.includes("images.weserv.nl")) return url; // Avoid double proxying
-  // Bypass Origin IP blocks using a global caching proxy (weserv.nl)
+  if (url.includes("wsrv.nl")) return url; // Avoid double proxying
+  // Bypass Origin IP blocks using a global caching proxy (wsrv.nl migrated from weserv.nl)
   // This solves 403 Forbidden issues when IG URLs generated in US are opened in India
-  return `https://images.weserv.nl/?url=${encodeURIComponent(url)}`;
+  return `https://wsrv.nl/?url=${encodeURIComponent(url)}`;
 }
 
 export function formatCount(n: number): string {

@@ -135,9 +135,9 @@ const defaultMusicTitles = [
 ];
 
 const defaultMusicIcons = [
-  "https://i.pravatar.cc/80?img=10",
-  "https://i.pravatar.cc/80?img=12",
-  "https://i.pravatar.cc/80?img=14",
+  "https://randomuser.me/api/portraits/men/53.jpg80?img=10",
+  "https://randomuser.me/api/portraits/men/29.jpg80?img=12",
+  "https://randomuser.me/api/portraits/men/75.jpg80?img=14",
 ];
 
 export const defaultJust4abhiiReels: ExtendedPostItem[] = Array.from({ length: 20 }, (_, i) => ({

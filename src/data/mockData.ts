@@ -45,28 +45,28 @@ export interface UserProfile {
 
 export const stories: Story[] = [
   { id: "own", username: "Your story", avatar: "/profile-pic.png", isOwn: true },
-  { id: "1", username: "jake.miller_", avatar: "https://i.pravatar.cc/150?img=1", hasStory: true },
-  { id: "2", username: "emma.rose.x", avatar: "https://i.pravatar.cc/150?img=3", hasStory: true },
-  { id: "3", username: "tyler_wilson", avatar: "https://i.pravatar.cc/150?img=5", hasStory: true },
-  { id: "4", username: "olivia.grace", avatar: "https://i.pravatar.cc/150?img=7", hasStory: true },
-  { id: "5", username: "_noah.james_", avatar: "https://i.pravatar.cc/150?img=9", hasStory: true },
-  { id: "6", username: "harry.styles.fan", avatar: "https://i.pravatar.cc/150?img=11", hasStory: true },
-  { id: "7", username: "chloe__uk", avatar: "https://i.pravatar.cc/150?img=13", hasStory: true },
-  { id: "8", username: "liam.carter", avatar: "https://i.pravatar.cc/150?img=15", hasStory: true },
-  { id: "9", username: "mason.reed", avatar: "https://i.pravatar.cc/150?img=17", hasStory: true },
-  { id: "10", username: "sophia.blake", avatar: "https://i.pravatar.cc/150?img=19", hasStory: true },
-  { id: "11", username: "_ethan.cole_", avatar: "https://i.pravatar.cc/150?img=21", hasStory: true },
-  { id: "12", username: "charlotte.uk", avatar: "https://i.pravatar.cc/150?img=23", hasStory: true },
-  { id: "13", username: "logan.x", avatar: "https://i.pravatar.cc/150?img=25", hasStory: true },
-  { id: "14", username: "amelia_edits", avatar: "https://i.pravatar.cc/150?img=27", hasStory: true },
-  { id: "15", username: "ryan_07", avatar: "https://i.pravatar.cc/150?img=29", hasStory: true },
+  { id: "1", username: "jake.miller_", avatar: "https://randomuser.me/api/portraits/men/1.jpg", hasStory: true },
+  { id: "2", username: "emma.rose.x", avatar: "https://randomuser.me/api/portraits/men/3.jpg", hasStory: true },
+  { id: "3", username: "tyler_wilson", avatar: "https://randomuser.me/api/portraits/men/5.jpg", hasStory: true },
+  { id: "4", username: "olivia.grace", avatar: "https://randomuser.me/api/portraits/men/7.jpg", hasStory: true },
+  { id: "5", username: "_noah.james_", avatar: "https://randomuser.me/api/portraits/men/9.jpg", hasStory: true },
+  { id: "6", username: "harry.styles.fan", avatar: "https://randomuser.me/api/portraits/men/11.jpg", hasStory: true },
+  { id: "7", username: "chloe__uk", avatar: "https://randomuser.me/api/portraits/men/13.jpg", hasStory: true },
+  { id: "8", username: "liam.carter", avatar: "https://randomuser.me/api/portraits/men/15.jpg", hasStory: true },
+  { id: "9", username: "mason.reed", avatar: "https://randomuser.me/api/portraits/men/17.jpg", hasStory: true },
+  { id: "10", username: "sophia.blake", avatar: "https://randomuser.me/api/portraits/men/19.jpg", hasStory: true },
+  { id: "11", username: "_ethan.cole_", avatar: "https://randomuser.me/api/portraits/men/21.jpg", hasStory: true },
+  { id: "12", username: "charlotte.uk", avatar: "https://randomuser.me/api/portraits/men/23.jpg", hasStory: true },
+  { id: "13", username: "logan.x", avatar: "https://randomuser.me/api/portraits/men/25.jpg", hasStory: true },
+  { id: "14", username: "amelia_edits", avatar: "https://randomuser.me/api/portraits/men/27.jpg", hasStory: true },
+  { id: "15", username: "ryan_07", avatar: "https://randomuser.me/api/portraits/men/29.jpg", hasStory: true },
 ];
 
 const allPosts: Post[] = [
   {
     id: "1",
     username: "emma.rose.x",
-    avatar: "https://i.pravatar.cc/150?img=3",
+    avatar: "https://randomuser.me/api/portraits/men/3.jpg",
     image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&h=600&fit=crop",
     caption: "Golden hour magic ✨ #nature #sunset #photography",
     likes: 1243,
@@ -78,7 +78,7 @@ const allPosts: Post[] = [
   {
     id: "2",
     username: "tyler_wilson",
-    avatar: "https://i.pravatar.cc/150?img=5",
+    avatar: "https://randomuser.me/api/portraits/men/5.jpg",
     image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=600&fit=crop",
     caption: "New workspace setup 🖥️ What do you think? #minimal #desk #workspace",
     likes: 892,
@@ -89,7 +89,7 @@ const allPosts: Post[] = [
   {
     id: "3",
     username: "harry.styles.fan",
-    avatar: "https://i.pravatar.cc/150?img=11",
+    avatar: "https://randomuser.me/api/portraits/men/11.jpg",
     image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=600&fit=crop",
     caption: "Homemade pasta night 🍝 Recipe in bio! #foodie #cooking #homemade",
     likes: 2156,
@@ -99,7 +99,7 @@ const allPosts: Post[] = [
   {
     id: "4",
     username: "olivia.grace",
-    avatar: "https://i.pravatar.cc/150?img=7",
+    avatar: "https://randomuser.me/api/portraits/men/7.jpg",
     image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&h=600&fit=crop",
     caption: "Weekend adventure 🏔️ #travel #explore #mountains",
     likes: 3401,
@@ -111,7 +111,7 @@ const allPosts: Post[] = [
   {
     id: "5",
     username: "_noah.james_",
-    avatar: "https://i.pravatar.cc/150?img=9",
+    avatar: "https://randomuser.me/api/portraits/men/9.jpg",
     image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&h=600&fit=crop",
     caption: "Nature therapy 🌿 #nature #peace #vibes",
     likes: 4521,
@@ -122,7 +122,7 @@ const allPosts: Post[] = [
   {
     id: "6",
     username: "mevidyutjammwal",
-    avatar: "https://i.pravatar.cc/150?img=52",
+    avatar: "https://randomuser.me/api/portraits/women/52.jpg",
     image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&h=600&fit=crop",
     caption: "Standing strong with my fellow warriors 💪 #strength #motivation",
     likes: 1100000,
@@ -133,7 +133,7 @@ const allPosts: Post[] = [
   {
     id: "7",
     username: "chloe__uk",
-    avatar: "https://i.pravatar.cc/150?img=13",
+    avatar: "https://randomuser.me/api/portraits/men/13.jpg",
     image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&h=600&fit=crop",
     caption: "Music is life 🎵🔥 #edit #music #vibe",
     likes: 5672,
@@ -144,7 +144,7 @@ const allPosts: Post[] = [
   {
     id: "8",
     username: "liam.carter",
-    avatar: "https://i.pravatar.cc/150?img=15",
+    avatar: "https://randomuser.me/api/portraits/men/15.jpg",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&fit=crop",
     caption: "Confidence is silent, insecurities are loud 🤫 #attitude #style",
     likes: 8934,
@@ -155,7 +155,7 @@ const allPosts: Post[] = [
   {
     id: "9",
     username: "mason.reed",
-    avatar: "https://i.pravatar.cc/150?img=17",
+    avatar: "https://randomuser.me/api/portraits/men/17.jpg",
     image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600&h=600&fit=crop",
     caption: "Lost in the wilderness 🌲 #wanderlust #explore #wild",
     likes: 6789,
@@ -166,7 +166,7 @@ const allPosts: Post[] = [
   {
     id: "10",
     username: "sophia.blake",
-    avatar: "https://i.pravatar.cc/150?img=19",
+    avatar: "https://randomuser.me/api/portraits/men/19.jpg",
     image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=600&fit=crop",
     caption: "Beach vibes only 🏖️🌊 #beach #sunset #ocean",
     likes: 12450,
@@ -178,7 +178,7 @@ const allPosts: Post[] = [
   {
     id: "11",
     username: "_ethan.cole_",
-    avatar: "https://i.pravatar.cc/150?img=21",
+    avatar: "https://randomuser.me/api/portraits/men/21.jpg",
     image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&h=600&fit=crop",
     caption: "Portrait mood 📸 #portrait #photography #mood",
     likes: 3456,
@@ -188,7 +188,7 @@ const allPosts: Post[] = [
   {
     id: "12",
     username: "charlotte.uk",
-    avatar: "https://i.pravatar.cc/150?img=23",
+    avatar: "https://randomuser.me/api/portraits/men/23.jpg",
     image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600&h=600&fit=crop",
     caption: "Morning fog in the valley 🌫️ #nature #morning #peace",
     likes: 7823,
@@ -199,7 +199,7 @@ const allPosts: Post[] = [
   {
     id: "13",
     username: "logan.x",
-    avatar: "https://i.pravatar.cc/150?img=25",
+    avatar: "https://randomuser.me/api/portraits/men/25.jpg",
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=600&fit=crop",
     caption: "Tech life 💻⚡ #coding #developer #tech",
     likes: 2345,
@@ -209,7 +209,7 @@ const allPosts: Post[] = [
   {
     id: "14",
     username: "amelia_edits",
-    avatar: "https://i.pravatar.cc/150?img=27",
+    avatar: "https://randomuser.me/api/portraits/men/27.jpg",
     image: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?w=600&h=600&fit=crop",
     caption: "Flowers don't compete, they just bloom 🌸 #flowers #nature",
     likes: 9876,
@@ -221,7 +221,7 @@ const allPosts: Post[] = [
   {
     id: "15",
     username: "ryan_07",
-    avatar: "https://i.pravatar.cc/150?img=29",
+    avatar: "https://randomuser.me/api/portraits/men/29.jpg",
     image: "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=600&h=600&fit=crop",
     caption: "Living the dream ✈️🌍 #travel #adventure #life",
     likes: 15600,
@@ -331,7 +331,7 @@ export const mockAccounts: Record<string, MockAccount> = {
     profile: currentUser,
     posts: userPostImages.map(img => ({ thumbnail: img })),
     highlights: [
-      { name: "💕GloWth-💕", image: "https://i.pravatar.cc/150?img=47" },
+      { name: "💕GloWth-💕", image: "https://randomuser.me/api/portraits/men/47.jpg" },
       { name: "✨Channel★", image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=100&h=100&fit=crop" },
     ],
     storyNote: "Staying in or going out?",
@@ -343,7 +343,7 @@ export const mockAccounts: Record<string, MockAccount> = {
     profile: {
       username: "virat.kohli",
       fullName: "Virat Kohli",
-      avatar: "https://i.pravatar.cc/150?img=52",
+      avatar: "https://randomuser.me/api/portraits/women/52.jpg",
       bio: "🇮🇳 Indian Cricketer\n🏏 Royal Challengers Bangalore\n❤️ Father | Husband | Cricketer",
       posts: 1243,
       followers: 272000000,
@@ -365,7 +365,7 @@ export const mockAccounts: Record<string, MockAccount> = {
     highlights: [
       { name: "🏏 Cricket", image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=100&h=100&fit=crop" },
       { name: "💪 Fitness", image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=100&h=100&fit=crop" },
-      { name: "👨‍👩‍👧 Family", image: "https://i.pravatar.cc/150?img=32" },
+      { name: "👨‍👩‍👧 Family", image: "https://randomuser.me/api/portraits/women/32.jpg" },
     ],
     storyNote: "Game day energy ⚡",
     category: "Athlete",
@@ -376,7 +376,7 @@ export const mockAccounts: Record<string, MockAccount> = {
     profile: {
       username: "photography_art",
       fullName: "📸 Art of Photography",
-      avatar: "https://i.pravatar.cc/150?img=36",
+      avatar: "https://randomuser.me/api/portraits/women/36.jpg",
       bio: "Professional Photographer 📷\n🌍 Travel | Nature | Portrait\n📩 DM for collab\n🔗 Portfolio below ⬇️",
       posts: 456,
       followers: 850000,
@@ -409,7 +409,7 @@ export const mockAccounts: Record<string, MockAccount> = {
     profile: {
       username: "foodie_queen",
       fullName: "Priya Sharma 🍕",
-      avatar: "https://i.pravatar.cc/150?img=45",
+      avatar: "https://randomuser.me/api/portraits/men/45.jpg",
       bio: "Food Blogger | Chef 👩‍🍳\n🍜 Indian | Italian | Thai\n📍 Mumbai, India\n🎬 YouTube: 500K subs",
       posts: 892,
       followers: 1200000,
@@ -442,7 +442,7 @@ export const mockAccounts: Record<string, MockAccount> = {
     profile: {
       username: "tech_guru_",
       fullName: "Rahul Tech 💻",
-      avatar: "https://i.pravatar.cc/150?img=60",
+      avatar: "https://randomuser.me/api/portraits/women/60.jpg",
       bio: "Tech Reviewer | Gadgets 📱\n🎮 Gaming | Unboxing\n📺 YouTube: 2M subs\n🔔 Turn on notifications!",
       posts: 334,
       followers: 3500000,
@@ -499,7 +499,7 @@ export const mockAccounts: Record<string, MockAccount> = {
 // Persistence: load saved profile overrides from localStorage
 const PROFILE_STORAGE_KEY = "ig_profile_overrides";
 const PROFILE_VERSION_KEY = "ig_profile_version";
-const CURRENT_PROFILE_VERSION = "v4"; // bump this to force reset defaults
+const CURRENT_PROFILE_VERSION = "v5"; // Bumping from v4 to force reset defaults to clear out old dead weserv proxy avatar URLs
 const loadProfileOverrides = () => {
   try {
     // If version changed, clear old overrides so new defaults apply

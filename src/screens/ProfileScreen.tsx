@@ -348,7 +348,7 @@ const ProfileScreen = () => {
     if (acc) {
       if (editingHighlightIndex === -1) {
         // Adding new
-        acc.highlights.push({ name: highlightName || "New", image: highlightImageUrl || "https://i.pravatar.cc/150?img=1" });
+        acc.highlights.push({ name: highlightName || "New", image: highlightImageUrl || "https://randomuser.me/api/portraits/men/1.jpg" });
       } else {
         acc.highlights[editingHighlightIndex] = { name: highlightName, image: highlightImageUrl };
       }

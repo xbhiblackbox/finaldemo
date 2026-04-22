@@ -13,12 +13,12 @@ interface Comment {
 }
 
 const mockComments: Comment[] = [
-  { id: "1", username: "sarah_j", avatar: "https://i.pravatar.cc/150?img=1", text: "This is absolutely stunning! 😍", timeAgo: "1h", likes: 12 },
-  { id: "2", username: "mike.design", avatar: "https://i.pravatar.cc/150?img=3", text: "Great capture! What camera did you use?", timeAgo: "2h", likes: 5 },
-  { id: "3", username: "priya_k", avatar: "https://i.pravatar.cc/150?img=5", text: "Love the colors 🎨", timeAgo: "3h", likes: 8 },
-  { id: "4", username: "alex.dev", avatar: "https://i.pravatar.cc/150?img=7", text: "Beautiful! Adding to my travel list ✈️", timeAgo: "4h", likes: 3 },
-  { id: "5", username: "nina_art", avatar: "https://i.pravatar.cc/150?img=9", text: "Can I paint this? 🖼️", timeAgo: "5h", likes: 15 },
-  { id: "6", username: "raj_photo", avatar: "https://i.pravatar.cc/150?img=11", text: "The lighting is perfect here 📸", timeAgo: "6h", likes: 7 },
+  { id: "1", username: "sarah_j", avatar: "https://randomuser.me/api/portraits/men/1.jpg", text: "This is absolutely stunning! 😍", timeAgo: "1h", likes: 12 },
+  { id: "2", username: "mike.design", avatar: "https://randomuser.me/api/portraits/men/3.jpg", text: "Great capture! What camera did you use?", timeAgo: "2h", likes: 5 },
+  { id: "3", username: "priya_k", avatar: "https://randomuser.me/api/portraits/men/5.jpg", text: "Love the colors 🎨", timeAgo: "3h", likes: 8 },
+  { id: "4", username: "alex.dev", avatar: "https://randomuser.me/api/portraits/men/7.jpg", text: "Beautiful! Adding to my travel list ✈️", timeAgo: "4h", likes: 3 },
+  { id: "5", username: "nina_art", avatar: "https://randomuser.me/api/portraits/men/9.jpg", text: "Can I paint this? 🖼️", timeAgo: "5h", likes: 15 },
+  { id: "6", username: "raj_photo", avatar: "https://randomuser.me/api/portraits/men/11.jpg", text: "The lighting is perfect here 📸", timeAgo: "6h", likes: 7 },
 ];
 
 interface CommentsSheetProps {
@@ -37,7 +37,7 @@ const CommentsSheet = ({ isOpen, onClose, postUsername }: CommentsSheetProps) =>
     const newComment: Comment = {
       id: Date.now().toString(),
       username: "b4by_4ngel_",
-      avatar: "https://i.pravatar.cc/150?img=47",
+      avatar: "https://randomuser.me/api/portraits/men/47.jpg",
       text: comment,
       timeAgo: "now",
       likes: 0,
@@ -118,7 +118,7 @@ const CommentsSheet = ({ isOpen, onClose, postUsername }: CommentsSheetProps) =>
 
             {/* Comment Input */}
             <div className="flex items-center gap-3 border-t border-border px-4 py-3">
-              <img src="https://i.pravatar.cc/150?img=47" alt="You" className="h-8 w-8 rounded-full object-cover flex-shrink-0" />
+              <img src="https://randomuser.me/api/portraits/men/47.jpg" alt="You" className="h-8 w-8 rounded-full object-cover flex-shrink-0" />
               <Input
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
