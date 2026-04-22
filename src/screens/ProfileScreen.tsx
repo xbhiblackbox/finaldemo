@@ -775,7 +775,7 @@ const ProfileScreen = () => {
             <p className="text-[15px] font-semibold text-foreground mb-1.5">{displayProfile.fullName}</p>
             <div className="flex w-full">
               {[
-                { label: "posts", value: account.postsDisplay || String(isJust4abhii ? (reelsData?.length || 0) : account.posts?.length || profile.posts) },
+                { label: "posts", value: account.postsDisplay || String(isJust4abhii ? reelsData.length : account.posts?.length || profile.posts) },
                 { label: "followers", value: account.followersDisplay || String(profile.followers) },
                 { label: "following", value: account.followingDisplay || String(profile.following) },
               ].map((s, i) => (
@@ -1013,9 +1013,9 @@ const ProfileScreen = () => {
         profile={displayProfile}
         storyNote={account.storyNote}
         category={account.category}
-        postsDisplay={igProfile ? String(displayProfile.posts) : account.postsDisplay}
-        followersDisplay={igProfile ? String(displayProfile.followers) : account.followersDisplay}
-        followingDisplay={igProfile ? String(displayProfile.following) : account.followingDisplay}
+        postsDisplay={account.postsDisplay || String(isJust4abhii ? reelsData.length : account.posts?.length || profile.posts)}
+        followersDisplay={account.followersDisplay || String(profile.followers)}
+        followingDisplay={account.followingDisplay || String(profile.following)}
         onSave={handleSave}
         showHighlights={showHighlights}
         onToggleHighlights={toggleHighlights}
