@@ -60,8 +60,8 @@ class TtlCache<T> {
   }
 }
 
-// Instagram API cache — 30 minutes, up to 2k profiles (~few MB)
-export const igCache = new TtlCache<unknown>(30 * 60 * 1000, 2000);
+// Instagram API cache — 60 minutes, up to 5k profiles (~few MB) to reduce API hits
+export const igCache = new TtlCache<unknown>(60 * 60 * 1000, 5000);
 
 // Key validation cache — 5 minutes, up to 5k keys
 export const keyCache = new TtlCache<{ valid: boolean; label?: string; error?: string }>(5 * 60 * 1000, 5000);

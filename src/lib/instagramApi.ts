@@ -264,13 +264,14 @@ async function syncIgHighlightsToMockAccounts(username: string, highlights: Inst
 // ─────────── Helpers ───────────
 
 /** Proxy Instagram CDN images through our server to bypass referrer/CORS blocks. */
-export function proxyIgImage(url: string | undefined | null): string {
+export function proxyIgImage(url: string | undefined | null, width?: number): string {
   if (!url) return "";
   if (!url.startsWith("http")) return url; // Do not proxy local/relative paths
   if (url.includes("wsrv.nl")) return url; // Avoid double proxying
   // Bypass Origin IP blocks using a global caching proxy (wsrv.nl migrated from weserv.nl)
-  // This solves 403 Forbidden issues when IG URLs generated in US are opened in India
-  return `https://wsrv.nl/?url=${encodeURIComponent(url)}`;
+  // Optimization: use avif/webp, reduce quality to 60, and set a max width to prevent heavy network/memory lag
+  const w = width ? `&w=${width}` : "&w=600";
+  return `https://wsrv.nl/?url=${encodeURIComponent(url)}${w}&q=60&output=webp`;
 }
 
 export function formatCount(n: number): string {
