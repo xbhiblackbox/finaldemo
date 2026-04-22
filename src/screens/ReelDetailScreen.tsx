@@ -36,6 +36,7 @@ interface ProfileReelData {
   comments: number;
   sends: number;
   saves: number;
+  reposts: number;
   views: string;
   accountUsername: string;
   profileAvatar: string;
@@ -67,6 +68,16 @@ const ProfileReelCard = ({
   const [commentCount, setCommentCount] = useState(data.comments);
   const [sendCount, setSendCount] = useState(data.sends);
   const [saveCount, setSaveCount] = useState(data.saves);
+  const [repostCount, setRepostCount] = useState(data.reposts);
+
+  // Sync state with updated data from outer component (e.g. after returning from Insights)
+  useEffect(() => {
+    setLikeCount(data.likes);
+    setCommentCount(data.comments);
+    setSendCount(data.sends);
+    setSaveCount(data.saves);
+    setRepostCount(data.reposts);
+  }, [data.likes, data.comments, data.sends, data.saves, data.reposts]);
 
   // Auto-play/pause based on isActive
   useEffect(() => {
@@ -159,6 +170,7 @@ const ProfileReelCard = ({
               <polyline points="7 23 3 19 7 15" />
               <path d="M21 12v3a4 4 0 0 1-4 4H3" />
             </svg>
+            <span className="text-[12px] text-white font-semibold">{fmtK(repostCount)}</span>
           </button>
           {/* Send */}
           <button
@@ -336,6 +348,7 @@ const ReelDetailScreen = () => {
     const comments = ins?.comments ?? igReel?.comments ?? 10;
     const sends = ins?.shares ?? igReel?.shares ?? 24;
     const saves = ins?.saves ?? 60;
+    const reposts = ins?.reposts ?? 0;
     const views = ins?.views || igReel?.views || 0;
 
     const isReelItem = (post as any)?.isReel !== false && (!!videoUrl || !!(post as any)?.isReel || !!igReel);
@@ -356,6 +369,7 @@ const ReelDetailScreen = () => {
       comments,
       sends,
       saves,
+      reposts,
       views: viewsLabel,
       accountUsername,
       profileAvatar: displayAvatar,
