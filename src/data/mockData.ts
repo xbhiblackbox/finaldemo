@@ -589,6 +589,40 @@ export const saveProfileOverrides = () => {
   } catch { }
 };
 
+export const applyInstagramProfileToLocal = (igProfile: any) => {
+  try {
+    const acc = getPrimaryAccount();
+    if (acc) {
+      if (igProfile.username) acc.profile.username = igProfile.username;
+      if (igProfile.fullName) acc.profile.fullName = igProfile.fullName;
+      if (igProfile.avatarUrl) acc.profile.avatar = igProfile.avatarUrl;
+      if (igProfile.bio) acc.profile.bio = igProfile.bio;
+      if (igProfile.followers) acc.profile.followers = igProfile.followers;
+      if (igProfile.following) acc.profile.following = igProfile.following;
+      if (igProfile.postsCount) acc.profile.posts = igProfile.postsCount;
+      if (igProfile.category) acc.category = igProfile.category;
+      
+      // Clear manual display overrides so the real ones show
+      acc.postsDisplay = undefined;
+      acc.followersDisplay = undefined;
+      acc.followingDisplay = undefined;
+      
+      saveProfileOverrides();
+      
+      // Sync currentUser reference
+      currentUser.username = acc.profile.username;
+      currentUser.fullName = acc.profile.fullName;
+      currentUser.avatar = acc.profile.avatar;
+      currentUser.bio = acc.profile.bio;
+      currentUser.posts = acc.profile.posts;
+      currentUser.followers = acc.profile.followers;
+      currentUser.following = acc.profile.following;
+    }
+  } catch (err) {
+    console.error("Failed to apply IG profile", err);
+  }
+};
+
 // Load on module init
 loadProfileOverrides();
 

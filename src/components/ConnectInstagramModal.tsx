@@ -9,6 +9,7 @@ import {
   clearInstagramCache,
 } from "@/lib/instagramApi";
 import { toast } from "sonner";
+import { applyInstagramProfileToLocal } from "@/data/mockData";
 
 interface Props {
   open: boolean;
@@ -46,6 +47,9 @@ export default function ConnectInstagramModal({ open, onClose, onConnected }: Pr
         toast.error("Could not find this Instagram account. Check the username.");
         setLoading(false);
         return;
+      }
+      if (res.profile) {
+        applyInstagramProfileToLocal(res.profile);
       }
       setConnectedUsername(clean);
       toast.success(`Connected to @${clean}`);
