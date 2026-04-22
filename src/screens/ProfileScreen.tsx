@@ -208,24 +208,12 @@ const ProfileScreen = () => {
       }));
   }, [igEnabled, igData]);
 
-  // Live IG profile (avatar, fullName, bio, followers/following/posts) — overrides only when connected & data present
-  const igProfile = igEnabled ? igData?.profile : null;
   const displayProfile = useMemo(() => {
-    if (!igProfile) return profile;
-    const igWebsite = (igProfile.externalUrl || "").replace(/^https?:\/\//, "").replace(/\/$/, "");
     return {
       ...profile,
-      username: igProfile.username || profile.username,
-      fullName: igProfile.fullName || profile.fullName,
-      bio: igProfile.bio || profile.bio,
-      avatar: proxyIgImage(igProfile.avatarUrl) || profile.avatar,
-      followers: igProfile.followers || profile.followers,
-      following: igProfile.following || profile.following,
-      posts: igProfile.postsCount || profile.posts,
-      isVerified: igProfile.isVerified ?? profile.isVerified,
-      website: igWebsite || profile.website,
+      avatar: proxyIgImage(profile.avatar) || profile.avatar,
     };
-  }, [igProfile, profile]);
+  }, [profile]);
 
   // Per-account manual edits (for non-main accounts) so views/likes edited from
   // Reel Insights screen reflect on the profile grid as well.
@@ -787,9 +775,9 @@ const ProfileScreen = () => {
             <p className="text-[15px] font-semibold text-foreground mb-1.5">{displayProfile.fullName}</p>
             <div className="flex w-full">
               {[
-                { label: "posts", value: igProfile ? formatCount(displayProfile.posts as number) : (account.postsDisplay || String(isJust4abhii ? reelsData.length : account.posts?.length || profile.posts)) },
-                { label: "followers", value: igProfile ? formatCount(displayProfile.followers as number) : (account.followersDisplay || String(profile.followers)) },
-                { label: "following", value: igProfile ? formatCount(displayProfile.following as number) : (account.followingDisplay || String(profile.following)) },
+                { label: "posts", value: account.postsDisplay || String(isJust4abhii ? reelsData.length : account.posts?.length || profile.posts) },
+                { label: "followers", value: account.followersDisplay || String(profile.followers) },
+                { label: "following", value: account.followingDisplay || String(profile.following) },
               ].map((s, i) => (
                 <button key={s.label} className={`flex flex-col items-center ${i === 0 ? 'pr-5' : 'flex-1'}`}>
                   <p className="text-[16px] font-medium text-foreground leading-tight">{s.value}</p>
