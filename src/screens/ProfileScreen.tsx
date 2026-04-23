@@ -136,6 +136,11 @@ const ProfileScreen = () => {
               if (d.likes != null && (reel.insights?.likes == null || reel.insights.likes === 0)) {
                 reel.insights = { ...reel.insights, likes: d.likes as number };
               }
+              if (d.isManuallyEdited) {
+                reel.isManuallyEdited = true;
+                if (!reel.insights) reel.insights = {} as any;
+                reel.insights.isManuallyEdited = true;
+              }
               updated[idx] = reel;
             }
           }
@@ -192,7 +197,7 @@ const ProfileScreen = () => {
   const igMedia = useMemo(() => {
     if (!igEnabled || !igData) return null;
     const all = [...(igData.reels || []), ...(igData.posts || [])];
-    if (all.length === 0) return null;
+    if (all.length === 0) return [];
     return all
       .sort((a, b) => (b.takenAt || 0) - (a.takenAt || 0))
       .map(r => ({
@@ -228,13 +233,14 @@ const ProfileScreen = () => {
   const userPosts = useMemo(() => {
     if (igMedia) {
       return igMedia.map((m: any, i: number) => {
-        const editedMain = isJust4abhii ? reelsData[i]?.insights : null;
-        const editedAcc = !isJust4abhii ? accountEdits[i]?.insights : null;
+        const editedMain = isJust4abhii ? reelsData[i] : null;
+        const editedAcc = !isJust4abhii ? accountEdits[i] : null;
+        const isManual = editedMain?.isManuallyEdited || editedMain?.insights?.isManuallyEdited || editedAcc?.isManuallyEdited || editedAcc?.insights?.isManuallyEdited;
         return {
           ...m,
-          views: editedMain?.views ?? editedAcc?.views ?? m.views,
-          likes: editedMain?.likes ?? editedAcc?.likes ?? m.likes,
-          comments: editedMain?.comments ?? editedAcc?.comments ?? m.comments,
+          views: isManual ? (editedMain?.insights?.views ?? editedAcc?.insights?.views ?? m.views) : m.views,
+          likes: isManual ? (editedMain?.insights?.likes ?? editedAcc?.insights?.likes ?? m.likes) : m.likes,
+          comments: isManual ? (editedMain?.insights?.comments ?? editedAcc?.insights?.comments ?? m.comments) : m.comments,
         };
       });
     }

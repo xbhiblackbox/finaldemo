@@ -23,6 +23,7 @@ export interface ReelInsights {
   typicalSkipRate: number;
   retentionCurve?: { t: string; pct: number }[];
   typicalRetentionCurve?: { t: string; pct: number }[];
+  isManuallyEdited?: boolean;
 }
 
 export interface ExtendedPostItem {
@@ -36,6 +37,7 @@ export interface ExtendedPostItem {
   yCenter?: number;
   yTop?: number;
   showGraph?: boolean;
+  isManuallyEdited?: boolean;
   insights: ReelInsights;
 }
 

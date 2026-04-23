@@ -152,6 +152,7 @@ const ReelInsightsScreen = () => {
   const [customGraphData, setCustomGraphData] = useState<{ day: string; thisReel: number; typical: number }[] | null>(null);
   const [editTypicalTop, setEditTypicalTop] = useState(Math.round((ins?.views ?? 1000) * 0.55));
   const [editGraphYMax, setEditGraphYMax] = useState<number | null>(null);
+  const [isManuallyEditedState, setIsManuallyEditedState] = useState(post?.isManuallyEdited || post?.insights?.isManuallyEdited || false);
 
   // Watch time editable state
   const [editWatchTime, setEditWatchTime] = useState(ins?.watchTime || "1h 3m 53s");
@@ -235,7 +236,9 @@ const ReelInsightsScreen = () => {
     if (igAppliedRef.current === key) return;
     igAppliedRef.current = key;
 
-    // Apply scraped values as defaults — only if user hasn't edited them yet (still at initial mock defaults).
+    // Apply scraped values as defaults — only if user hasn't edited them yet.
+    if (isManuallyEditedState) return;
+
     if (target.likes > 0) setEditLikes(target.likes);
     if (target.comments > 0) setEditComments(target.comments);
     if (target.shares > 0) setEditShares(target.shares);
@@ -359,6 +362,7 @@ const ReelInsightsScreen = () => {
         if (d.videoUrl) setPostVideoUrl(d.videoUrl as string);
         if (d.caption) setPostCaption(d.caption as string);
         if (d.retentionImage) setRetentionImageUrl(d.retentionImage as string);
+        if (d.isManuallyEdited) setIsManuallyEditedState(true);
       } catch (e) {
         console.warn('[Supabase] Load failed, using localStorage data:', e);
       }
@@ -462,11 +466,18 @@ const ReelInsightsScreen = () => {
   const fmtNum = (n: number) => n >= 1000 ? n.toLocaleString() : String(n);
 
   // Persist current edits back to localStorage
-  const persistEdits = useCallback(() => {
+  const persistEdits = useCallback((forceManual: boolean = false) => {
+    const markManual = isEditMode || forceManual || isManuallyEditedState;
     if (isMainAccount) {
       const freshData = loadReelsData();
       const reel = freshData[postIndex];
       if (!reel) return;
+      if (markManual) {
+        reel.isManuallyEdited = true;
+        if (!reel.insights) reel.insights = {} as any;
+        reel.insights.isManuallyEdited = true;
+        if (!isManuallyEditedState) setIsManuallyEditedState(true);
+      }
       reel.insights = {
         ...reel.insights,
         views: editViews,
@@ -518,10 +529,12 @@ const ReelInsightsScreen = () => {
     // Non-main account: save sparse per-account edit overlay so that
     // profile grid + reel detail screen reflect manual edits as well.
     updateAccountReelEdit(accountUsername, postIndex, {
+      ...(markManual ? { isManuallyEdited: true } : {}),
       caption: postCaption,
       thumbnail: postImage || undefined,
       videoUrl: postVideoUrl || undefined,
       insights: {
+        ...(markManual ? { isManuallyEdited: true } : {}),
         views: editViews,
         likes: editLikes,
         comments: editComments,
@@ -530,8 +543,9 @@ const ReelInsightsScreen = () => {
         reposts: editReposts,
       } as any,
     });
+    if (markManual && !isManuallyEditedState) setIsManuallyEditedState(true);
     console.log("[InsightsPersist] Saved per-account edits", accountUsername, postIndex);
-  }, [isMainAccount, accountUsername, postIndex, editViews, editLikes, editComments, editShares, editSaves, editReposts, editFollowerPct, editGenderMale, editViewRate, editStartDate, editDuration, editXDate1, editXDate2, editXDate3, customGraphData, editYCenter, editYTop, editSkipRate, editTypicalSkipRate, editRetentionCurve, editWatchTime, editAvgWatchTime, showGraph, editSources, editCountries, editAgeGroups, editAccountsReached, editFollows, postImage, postCaption, postVideoUrl]);
+  }, [isMainAccount, accountUsername, postIndex, editViews, editLikes, editComments, editShares, editSaves, editReposts, editFollowerPct, editGenderMale, editViewRate, editStartDate, editDuration, editXDate1, editXDate2, editXDate3, customGraphData, editYCenter, editYTop, editSkipRate, editTypicalSkipRate, editRetentionCurve, editWatchTime, editAvgWatchTime, showGraph, editSources, editCountries, editAgeGroups, editAccountsReached, editFollows, postImage, postCaption, postVideoUrl, isEditMode, isManuallyEditedState]);
 
   // Auto-persist edits to localStorage (skip initial mount)
   const hasMounted = useRef(false);
@@ -625,7 +639,7 @@ const ReelInsightsScreen = () => {
             </button>
           ) : (
             <button 
-              onClick={() => { setIsEditMode(false); saveToSupabase(); persistEdits(); toast.success("All changes saved"); }}
+              onClick={() => { setIsEditMode(false); saveToSupabase({ isManuallyEdited: true }); persistEdits(true); toast.success("All changes saved"); }}
               className="text-[14px] font-bold text-[hsl(var(--ig-blue))] leading-none"
             >
               Done
