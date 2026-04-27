@@ -186,14 +186,12 @@ const ProfileScreen = () => {
     const liveHighlights = igData?.highlights;
     if (!liveHighlights) return;
     const hasReal = liveHighlights.length > 0;
-    if (hasReal && !showHighlights) {
-      setShowHighlights(true);
-      localStorage.setItem('showHighlights', 'true');
-    } else if (!hasReal && showHighlights) {
-      setShowHighlights(false);
-      localStorage.setItem('showHighlights', 'false');
+    const saved = localStorage.getItem('showHighlights');
+    if (saved === null) {
+      setShowHighlights(hasReal);
+      localStorage.setItem('showHighlights', String(hasReal));
     }
-  }, [igEnabled, igData?.highlights, showHighlights]);
+  }, [igEnabled, igData?.highlights]);
   const igMedia = useMemo(() => {
     if (!igEnabled || !igData) return null;
     const all = [...(igData.reels || []), ...(igData.posts || [])];
@@ -231,7 +229,7 @@ const ProfileScreen = () => {
   // Manual edits saved in Reel Insights always override API/mock counts so they stay
   // consistent everywhere even if the IG API later returns different numbers or fails.
   const userPosts = useMemo(() => {
-    if (igMedia) {
+    if (igMedia && igMedia.length > 0) {
       return igMedia.map((m: any, i: number) => {
         const editedMain = isJust4abhii ? reelsData[i] : null;
         const editedAcc = !isJust4abhii ? accountEdits[i] : null;
